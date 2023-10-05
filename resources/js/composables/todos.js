@@ -10,6 +10,7 @@ export default function useTodos() {
     const router = useRouter()
     const getTodos = async () => {
         let response = await axios.get('/api/todos')
+        console.log(response, 9898)
         todos.value = response.data.data
     }
 
@@ -20,12 +21,28 @@ export default function useTodos() {
             })
     }
 
+    const storeTodo = async (data) => {
+        errors.value = ''
+        try {
+            await axios.post('/api/todos', data)
+            await router.push('/');
+        } catch (e) {
+            if (e.response.status === 422) {
+                for (const key in e.response.data.errors) {
+                    errors.value = e.response.data.errors
+                }
+            }
+        }
+
+    }
+
+
     const destroyTodo =  async (id) => {
         await axios.delete(`/api/todos/${id}`);
-        router.push('/');
+        await router.push('/');
     }
 
     return {
-        errors, todos, todo, getTodos, getTodo, destroyTodo
+        errors, todos, todo, getTodos, getTodo, destroyTodo, storeTodo
     }
 }
