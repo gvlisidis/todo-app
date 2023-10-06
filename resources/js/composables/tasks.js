@@ -51,9 +51,8 @@ export default function useTasks() {
             .then((response) => {
                 pendingTasks.value = pendingTasks.value.filter(task => task.id !== response.data.data.id);
                 completedTasks.value.push(response.data.data);
+                router.push('/');
             })
-        await  router.push('/');
-
     }
 
     const destroyTask = async (id) => {
@@ -65,6 +64,6 @@ export default function useTasks() {
     }
 
     return {
-        errors, pendingTasks, completedTasks,searchTasks, task, getTasks, destroyTask, storeTask, completeTask
+        errors, pendingTasks, completedTasks, searchTasks, task, getTasks, destroyTask, storeTask, completeTask
     }
 }

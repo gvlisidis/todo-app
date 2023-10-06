@@ -52,13 +52,16 @@
                     <h3 class="font-bold ">Pending Tasks</h3>
                     <div class="flex space-x-16">
                         <p>Due date</p>
-                        <p class="mr-6">Actions</p>
+                        <p class="pr-6">Actions</p>
                     </div>
                 </div>
                 <div v-if="pendingTasks.length > 0" class="w-full px-2 border border-gray-200 ">
                     <div class="flex flex-col w-full">
                         <div v-for="task in pendingTasks" :key="task.id" class="w-full flex justify-between">
-                            <TaskComponent :task="task" @taskCompleted="taskCompleted"></TaskComponent>
+                            <TaskComponent :task="task"
+                                           @taskCompleted="taskCompleted"
+                                           @taskRemoved="taskRemoved"
+                            ></TaskComponent>
                         </div>
                     </div>
                 </div>
@@ -113,10 +116,16 @@ onMounted(() => {
     getTasks()
 })
 
-const taskCompleted = () => {
-    getTasks()
+const taskCompleted = (id) => {
+    const task = pendingTasks.value.find(task => task.id === id);
+    pendingTasks.value = pendingTasks.value.filter(task => task.id !== id);
+    completedTasks.value.push(task);
+
 }
 
+const taskRemoved = (id) => {
+    pendingTasks.value = pendingTasks.value.filter(task => task.id !== id);
+}
 const saveTask = async () => {
     await storeTask({...form});
     form.text = '';
