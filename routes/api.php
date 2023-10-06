@@ -3,5 +3,8 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
-Route::get('todos', [\App\Http\Controllers\TodoController::class, 'index']);
-Route::post('todos', [\App\Http\Controllers\TodoController::class, 'store']);
+Route::get('tasks', [\App\Http\Controllers\TaskController::class, 'index'])->name('tasks.index');
+Route::post('tasks', [\App\Http\Controllers\TaskController::class, 'store']);
+Route::put('tasks/complete/{task}', [\App\Http\Controllers\TaskController::class, 'complete']);
+Route::put('tasks/{task}', [\App\Http\Controllers\TaskController::class, 'update']);
+Route::delete('tasks/{task}', [\App\Http\Controllers\TaskController::class, 'destroy']);

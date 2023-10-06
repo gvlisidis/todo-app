@@ -11,7 +11,7 @@
         <link href="https://fonts.bunny.net/css?family=figtree:400,600&display=swap" rel="stylesheet" />
         @vite(['resources/css/app.css', 'resources/js/app.js'])
     </head>
-    <body class="min-h-screen h-full w-full bg-gray-100">
+    <body class="min-h-screen h-full w-full">
         <div id="app"></div>
     </body>
 </html>
