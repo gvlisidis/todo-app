@@ -1,5 +1,5 @@
 <template>
-    <div class="w-full flex flex-col space-y-6">
+    <div class="w-full flex flex-col space-y-6 text-sm">
         <!-- SEARCH FOR TASK -->
         <div class="flex space-x-2 items-center relative">
             <div class="w-full flex  items-center relative">
@@ -23,7 +23,7 @@
 
         <!-- ADD A TASK -->
         <div class="w-full">
-            <h3>Add Task</h3>
+            <h3>Add a task</h3>
             <div class="my-3 px-4 py-1 w-full rounded bg-red-200 text-red-700 text-xs" v-if="errors">{{ errors }}</div>
             <div class="w-full">
                 <form class="flex  w-full items-center space-x-4">
@@ -37,7 +37,7 @@
                     </div>
                     <div>
                         <button type="button" @click.prevent="saveTask"
-                                class="text-xs md:text-sm px-5 py-2 rounded whitespace-nowrap hover:bg-sky-500 bg-sky-300">
+                                class="text-xs md:text-sm px-5 py-2 rounded whitespace-nowrap text-white hover:bg-slate-700 bg-slate-600">
                             Add task
                         </button>
                     </div>
@@ -48,13 +48,16 @@
         <!-- PENDING TASKS -->
         <div class="mt-10">
             <div class="">
-                <div class="bg-gray-200 py-2 rounded-t">
-                    <h3 class="font-bold px-2">Pending Tasks</h3>
+                <div class="bg-slate-600 text-white py-2 px-2 rounded-t flex justify-between">
+                    <h3 class="font-bold ">Pending Tasks</h3>
+                    <div class="flex space-x-16">
+                        <p>Due date</p>
+                        <p class="mr-6">Actions</p>
+                    </div>
                 </div>
                 <div v-if="pendingTasks.length > 0" class="w-full px-2 border border-gray-200 ">
                     <div class="flex flex-col w-full">
-                        <div v-for="task in pendingTasks" :key="task.id" class="w-full flex justify-between"
-                             :class="task.is_overdue ? 'text-red-500' : ''">
+                        <div v-for="task in pendingTasks" :key="task.id" class="w-full flex justify-between">
                             <TaskComponent :task="task" @taskCompleted="taskCompleted"></TaskComponent>
                         </div>
                     </div>
@@ -68,11 +71,11 @@
         <!-- COMPLETED TASKS -->
         <div class="mt-10">
             <div class=" ">
-                <div class="bg-gray-200 py-2 rounded-t flex justify-between items-center">
+                <div class="bg-slate-600 py-2 text-white rounded-t flex justify-between items-center">
                     <h3 class="font-bold px-2">Completed Tasks</h3>
                 </div>
                 <div v-if="completedTasks.length > 0"
-                     class="w-full fade-div text-green-600 px-2 border border-gray-200">
+                     class="w-full text-gray-400 line-through px-2 border border-gray-200">
                     <div class="flex flex-col w-full">
                         <div v-for="task in completedTasks" :key="task.id" class="w-full flex justify-between">
                             <div class="py-2 flex w-full items-center">
